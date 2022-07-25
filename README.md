@@ -17,7 +17,7 @@ docker run --name nexus -d -p 5000:5000 -p 8081:8081 -v `pwd`/nexus-data:/nexus-
 -- 도커 내부 파일 확인
 docker exec -it nexus cat /nexus-data/admin.password
 -- 아니면 로컬에 마운트된 폴더에서 확인
-cat nexus-data
+cat `pwd`/nexus-data/admin.password
 ```
 
 - Nexus 웹 접속 및 로그인
