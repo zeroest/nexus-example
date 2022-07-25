@@ -27,6 +27,16 @@ subprojects {
 
     repositories {
         mavenCentral()
+        // nexus 사용자는 해당 코드를 통해 라이브러리를 가져온다
+        maven {
+            credentials {
+                username nexusUsername
+                password nexusPassword
+            }
+            url "${nexusUrl}/repository/maven-public/"
+//            allowInsecureProtocol true
+//            http 사용시 insecure protocols 에러 발생
+        }
     }
 
     dependencies {

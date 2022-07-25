@@ -38,7 +38,10 @@ PW: `docker exec -it nexus cat /nexus-data/admin.password`
 ```
 
 > [Official doc](https://docs.gradle.org/5.6.4/userguide/artifact_management.html#artifact_management)  
-> [uploadArchives](https://kwonnam.pe.kr/wiki/gradle/maven)
+> [Kwonnam reference](https://kwonnam.pe.kr/wiki/gradle/maven)
+> 
+> The uploadArchives task was used in combination with the legacy Ivy or Maven publishing mechanisms. It has been removed in Gradle 7. You should migrate to the maven-publish or ivy-publish plugin instead.  
+> Please refer to the documentation of the Maven Publish plugin for publishing on Maven repositories. Please refer to the documentation of the Ivy Publish plugin for publishing on Ivy repositories.
 
 - publish
 
@@ -46,7 +49,4 @@ PW: `docker exec -it nexus cat /nexus-data/admin.password`
 ./gradlew publish
 ```
 
-> [Maven Publish Plugin](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven)
-> 
-> The uploadArchives task was used in combination with the legacy Ivy or Maven publishing mechanisms. It has been removed in Gradle 7. You should migrate to the maven-publish or ivy-publish plugin instead.  
-> Please refer to the documentation of the Maven Publish plugin for publishing on Maven repositories. Please refer to the documentation of the Ivy Publish plugin for publishing on Ivy repositories.
+> [Official doc](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven)
