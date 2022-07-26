@@ -9,15 +9,24 @@ buildscript {
     ext {
         appVersion='0.0.0'
         javaVersion='11'
+        springBootVersion="2.6.10"
+        springDependencyManagementVersion="1.0.12.RELEASE"
+        jibGradleVersion="3.2.1"
     }
 
     dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
+
+        classpath "gradle.plugin.com.google.cloud.tools:jib-gradle-plugin:${jibGradleVersion}"
     }
 }
 
 subprojects {
-    apply plugin: "groovy"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
     apply plugin: 'java'
+    apply plugin: "groovy"
     apply plugin: 'maven'
 
     project.group 'me.zeroest.nexus-example'
@@ -39,12 +48,29 @@ subprojects {
         }
     }
 
-    dependencies {
-        compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
-        compileOnly "org.projectlombok:lombok:1.18.8"
-        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    // https://docs.spring.io/dependency-management-plugin/docs/current/reference/html/
+    // https://scshim.tistory.com/419
+    // https://www.baeldung.com/spring-maven-bom
+    dependencyManagement{
+        dependencies {
+            dependencySet(group: "org.springframework.boot", version: "${springBootVersion}") {
+                entry "spring-boot-starter-web"
+                entry "spring-boot-starter-test"
+            }
 
+            dependencySet(group: "org.projectlombok", version: "1.18.22") {
+                entry "lombok"
+            }
+        }
+    }
+
+    dependencies {
         implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
 
 }

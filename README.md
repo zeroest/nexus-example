@@ -61,6 +61,11 @@ PW: `docker exec -it nexus cat /nexus-data/admin.password`
 - proxy: 외부 docker hub에 이미지를 내려받아 저장하고 local로 내려준다
 - group: hosted와 proxy를 묶어 하나의 registry로 운영하도록 도와준다.
 
+> group registry를 통해 pull과 push 모두 하면 편하지만  
+> 아래와 같이 group registry로 push하니 프로 라이센스가 필요하다고 한다  
+> 
+> denied: Deploying to groups is a PRO-licensed feature.
+
 ## 1. Blob 설정
 
 - docker hosted blob
@@ -116,6 +121,8 @@ docker restart nexus
 
 ## 5. 테스트
 
+- 커맨드라인 Pull & Push
+
 ```bash
 docker login -u admin -p password localhost:5000
 
@@ -125,4 +132,11 @@ docker pull localhost:5000/hello-world
 -- 로컬의 이미지를 hosted registry로 push하여 저장한다.
 docker tag localhost:5000/hello-world localhost:5000/test-image
 docker push localhost:5000/test-image
+```
+
+- Jib 라이브러리를 통한 image Push
+
+```bash
+./gradlew :api:jib -DsendCredentialsOverHttp=true
+-- http 프로토콜 사용시 sendCredentialsOverHttp 옵션 넣어줄것
 ```

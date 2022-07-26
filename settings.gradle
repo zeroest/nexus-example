@@ -1,3 +1,5 @@
 rootProject.name = 'nexus-example'
 
 include 'model'
+include 'api'
+
